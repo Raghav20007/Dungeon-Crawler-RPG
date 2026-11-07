@@ -2,8 +2,7 @@
 #include <iostream>
 #include <cctype>
 
-// Helper function for case-insensitive string comparison
-// Provided for you - do not modify
+// Helper function for case-insensitive string comparison - Provided
 static bool iequals(const std::string& a, const std::string& b) {
     if (a.length() != b.length()) return false;
     for (int i = 0; i < (int)a.length(); i++) {
@@ -14,7 +13,7 @@ static bool iequals(const std::string& a, const std::string& b) {
 
 /* ========== Player Class ========== */
 
-// Constructor - provided for you
+//Player Constructor - provided
 Player::Player(const std::string& name)
     : Character(name, 100, 10, 5),
       level(1), experience(0), gold(0),
@@ -28,17 +27,18 @@ Player::~Player() {
     inventory.clear();
 }
 
-void Player::displayStats() const {
-    /*
-===== PlayerName =====
-Level: 1
-HP: 100/100
-Attack: 10 (+5 from weapon)
-Defense: 5 (+3 from armor)
-Gold: 0
-Experience: 0
-=====================
+/*
+    ===== PlayerName =====
+    Level: 1
+    HP: 100/100
+    Attack: 10 (+5 from weapon)
+    Defense: 5 (+3 from armor)
+    Gold: 0
+    Experience: 0
+    =====================
 */
+void Player::displayStats() const {
+
     std::cout << "===== " << name <<  " =====\n" << "Level: " << level << "\n";
     std::cout << "HP: " << current_hp << "/" << max_hp << "\n";
     if (equipped_weapon != NULL){
@@ -63,7 +63,6 @@ Experience: 0
 }
 
 int Player::calculateDamage() const {
-    // TODO: Implement this function
     int attackDamage = Character::calculateDamage();
     if(equipped_weapon != NULL){
         Weapon *currentWeapon = (Weapon*)equipped_weapon;
@@ -74,16 +73,16 @@ int Player::calculateDamage() const {
     return attackDamage;
 }
 
+// "Picked up: ItemName"
 void Player::addItem(Item* item) {
-    // "Picked up: ItemName"
 
     inventory.push_back(item);
     std::cout << "Picked up: " << item->getName() << "\n";
 }
 
+//"Removed: ItemName"
+//"Item not found: ItemName"
 void Player::removeItem(const std::string& item_name) {
-    //"Removed: ItemName"
-    //"Item not found: ItemName"
 
     for(int i = 0; i < inventory.size(); i++){
 
@@ -105,12 +104,14 @@ void Player::removeItem(const std::string& item_name) {
     std::cout << "Item not found: " << item_name << "\n";
 }
 
+/*
+    Print header: "----- Inventory -----"
+    If inventory is empty: print "Empty"
+    Otherwise: print each item as "- ItemName (ItemType)"
+    Print footer: "--------------------" 
+*/
 void Player::displayInventory() const {
-    /*Print header: "----- Inventory -----"
-If inventory is empty: print "Empty"
-Otherwise: print each item as "- ItemName (ItemType)"
-Print footer: "--------------------" */
-
+    
     std::cout << "----- Inventory -----\n";
     if(inventory.empty()){
         std::cout << "Empty\n";
@@ -123,7 +124,6 @@ Print footer: "--------------------" */
 }
 
 bool Player::hasItem(const std::string& item_name) const {
-    // TODO: Implement this function
     for(int i = 0; i < (int)inventory.size(); i++){
         if(iequals(inventory[i]->getName(), item_name)){
             return true;
@@ -134,7 +134,6 @@ bool Player::hasItem(const std::string& item_name) const {
 }
 
 Item* Player::getItem(const std::string& item_name) {
-    // TODO: Implement this function
     for(int i = 0; i < (int)inventory.size(); i++){
         if(iequals(inventory[i]->getName(), item_name)){
             return inventory[i];
@@ -143,8 +142,9 @@ Item* Player::getItem(const std::string& item_name) {
     return NULL;
 }
 
+// "Attack bonus: +X"
 void Player::equipWeapon(const std::string& weapon_name) {
-    // "Attack bonus: +X"
+
     Item* item = Player::getItem(weapon_name);
 
     if(item == NULL){
@@ -167,7 +167,6 @@ void Player::equipWeapon(const std::string& weapon_name) {
 }
 
 void Player::equipArmor(const std::string& armor_name) {
-    // TODO: Implement this function
     Item* item = Player::getItem(armor_name);
 
     if(item == NULL){
@@ -189,10 +188,10 @@ void Player::equipArmor(const std::string& armor_name) {
     std::cout << "Defense bonus: +" << armor->getDefenseBonus() << "\n";
 }
 
-void Player::unequipWeapon() {
+
     // If a weapon is equipped: print "Unequipped WeaponName" and set equipped_weapon to NULL
     //If no weapon equipped: print "No weapon equipped!"
-
+void Player::unequipWeapon() {
     if(equipped_weapon == NULL){
         std::cout << "No weapon equipped!\n";
         return;
@@ -201,10 +200,9 @@ void Player::unequipWeapon() {
     equipped_weapon = NULL;
 }
 
-void Player::unequipArmor() {
     // If armor is equipped: print "Unequipped ArmorName" and set equipped_armor to NULL
     //If no armor equipped: print "No armor equipped!"
-
+void Player::unequipArmor() {
     if(equipped_armor == NULL){
         std::cout << "No armor equipped!\n";
         return;
@@ -213,10 +211,10 @@ void Player::unequipArmor() {
     equipped_armor = NULL;
 }
 
-void Player::useItem(const std::string& item_name) {
     // Find item in inventory using getItem()
     //If found and type is "Consumable": call heal() with the item's value, then call removeItem() to consume it
     //Otherwise: print "Cannot use ItemName"
+void Player::useItem(const std::string& item_name) {
     Item* item = Player::getItem(item_name);
     if(item == NULL){
         std::cout << "Cannot use " << item_name << "\n";
@@ -234,11 +232,10 @@ void Player::useItem(const std::string& item_name) {
 
 }
 
-void Player::gainExperience(int exp) {
     // Add exp to experience
     //Print: "Gained X experience!"
     //If experience >= level * 100: call levelUp()
-
+void Player::gainExperience(int exp) {
     experience += exp;
     std::cout << "Gained " << exp << " experience!\n";
 
@@ -247,15 +244,17 @@ void Player::gainExperience(int exp) {
     }
 }
 
+/*
+    Increment level
+    Reset experience to 0
+    Increase max_hp by 10
+    Set current_hp to max_hp (full heal)
+    Increase attack by 2
+    Increase defense by 1
+    Print "*** LEVEL UP! ***" followed by "You are now level X!"
+    Call displayStats() to show updated stats 
+*/ 
 void Player::levelUp() {
-    /*Increment level
-Reset experience to 0
-Increase max_hp by 10
-Set current_hp to max_hp (full heal)
-Increase attack by 2
-Increase defense by 1
-Print "*** LEVEL UP! ***" followed by "You are now level X!"
-Call displayStats() to show updated stats */ 
     level++;
     experience = 0;
     max_hp += 10;
