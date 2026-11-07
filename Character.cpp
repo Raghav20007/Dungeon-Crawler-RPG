@@ -3,7 +3,7 @@
 
 /* ========== Character Class ========== */
 
-// Constructor - provided for you
+// Character constructor provided
 Character::Character(const std::string& name, int hp, int attack, int defense)
     : name(name), max_hp(hp), current_hp(hp), attack(attack),
       defense(defense), alive(true) {
@@ -51,8 +51,7 @@ void Character::displayStats() const {
     std::cout << name << " [HP: " << current_hp << "/" << max_hp << "]\n";
 }
 
-// Operator overloading for printing (used by Game.cpp combat system)
-// Provided for you - do not modify
+// Operator overloading for printing - provided 
 std::ostream& operator<<(std::ostream& os, const Character& character) {
     os << character.getName() << " [HP: " << character.getCurrentHP()
        << "/" << character.getMaxHP() << "]";
