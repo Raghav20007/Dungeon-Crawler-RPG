@@ -2,7 +2,7 @@
 
 /* ========== Base Item Class ========== */
 
-// Constructor - provided for you
+// Item Constructor - provided
 Item::Item(const std::string& name, const std::string& description,
            const std::string& type, int value)
     : name(name), description(description), type(type), value(value) {
@@ -12,10 +12,7 @@ Item::~Item() {
 }
 
 void Item::displayInfo() const {
-    // [ITEM] ItemName
-  //Description text
-  //Value: X
-
+// [ITEM] ItemName, Description text, Value: X
   std::cout << "[ITEM] " << name << "\n" << description << "\n" << "Value: " << value << "\n";
 }
 
@@ -26,38 +23,32 @@ void Item::displayBrief() const {
 
 /* ========== Weapon Class ========== */
 
-// Constructor - provided for you
+//Weapon Constructor - provided 
 Weapon::Weapon(const std::string& name, const std::string& description, int damage)
     : Item(name, description, "Weapon", damage), damage_bonus(damage) {
 }
 
 void Weapon::displayInfo() const {
-    // [WEAPON] WeaponName
-  //Description text
-  //Damage Bonus: +X
-
+    // [WEAPON] WeaponName, Description text, Damage Bonus: +X
   std::cout << "[WEAPON] " << name << "\n" << description << "\n" << "Damage Bonus: +" << damage_bonus << "\n";
 }
 
 /* ========== Armor Class ========== */
 
-// Constructor - provided for you
+// Armor Constructor - provided
 Armor::Armor(const std::string& name, const std::string& description, int defense)
     : Item(name, description, "Armor", defense), defense_bonus(defense) {
 }
 
 void Armor::displayInfo() const {
-    // [ARMOR] ArmorName
-  //Description text
-  //Defense Bonus: +X
-
+    // [ARMOR] ArmorName, Description text, Defense Bonus: +X
   std::cout << "[ARMOR] " << name << "\n" << description << "\n" << "Defense Bonus: +" << defense_bonus << "\n";
 
 }
 
 /* ========== Consumable Class ========== */
 
-// Constructor - provided for you
+// Consumable Constructor - provided
 Consumable::Consumable(const std::string& name, const std::string& description,
                        int healing)
     : Item(name, description, "Consumable", healing),
@@ -65,10 +56,7 @@ Consumable::Consumable(const std::string& name, const std::string& description,
 }
 
 void Consumable::displayInfo() const {
-    // [CONSUMABLE] ConsumableName
-  //Description text
-  //Restores: X HP
-
+    // [CONSUMABLE] ConsumableName, Description text, Restores: X HP
   std::cout << "[CONSUMABLE] " << name << "\n" << description << "\n" << "Restores: " << healing_amount << " HP\n";
 
 }
@@ -85,8 +73,7 @@ void Consumable::use() {
     
 }
 
-// Operator overloading for printing
-// Provided for you - do not modify
+// Operator overloading for printing - Provided
 std::ostream& operator<<(std::ostream& os, const Item& item) {
     os << item.getName() << " (" << item.getType() << ")";
     return os;
